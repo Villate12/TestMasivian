@@ -37,7 +37,7 @@ public class RouletteController {
   public @ResponseBody String addNewBet(
     @RequestParam Integer rouletteId,
     @RequestParam String type,
-    @RequestParam Integer value,
+    @RequestParam String value,
     @RequestParam Integer amount,
     @RequestParam Integer userId
   ) {
@@ -48,8 +48,16 @@ public class RouletteController {
       Bet testBet = new Bet();
       if (
         (amount > 0 && amount < 10000) &&
-        (type.equals("color") || type.equals("number")) &&
-        (value > 0 && value < 37)
+        (
+          (
+            type.equals("color") &&
+            (value.equals("rojo") || value.equals("negro"))
+          ) ||
+          (
+            type.equals("number") &&
+            (Integer.parseInt(value) > 0 || Integer.parseInt(value) < 37)
+          )
+        )
       ) {
         testBet.setType(type);
         testBet.setBetValue(value);
@@ -72,7 +80,6 @@ public class RouletteController {
     if (optionalRoulette.isPresent()) {
       Roulettes roulette = optionalRoulette.get();
       String status = roulette.getStatus();
-      System.out.println(status + " ***************************");
       if (status.equals("noStarted")) {
         roulette.setStatus("open");
         roulette.setUpdatedAt(String.valueOf(new Date()));

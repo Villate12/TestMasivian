@@ -18,7 +18,7 @@ public class Bet {
   private Integer userId;
   private Integer rouletteId;
   private String type;
-  private Integer betValue;
+  private String betValue;
   private Integer amount;
 
   //@ManyToOne
@@ -41,11 +41,11 @@ public class Bet {
     this.type = type;
   }
 
-  public Integer getBetValue() {
+  public String getBetValue() {
     return betValue;
   }
 
-  public void setBetValue(Integer betValue) {
+  public void setBetValue(String betValue) {
     this.betValue = betValue;
   }
 
